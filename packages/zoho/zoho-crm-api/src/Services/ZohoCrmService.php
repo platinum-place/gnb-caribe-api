@@ -4,16 +4,16 @@ namespace Zoho\CRM\Services;
 
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
+use Throwable;
 
 class ZohoCrmService
 {
-    public function __construct(protected Oauth2Service $oauth2, protected RecordService $record)
-    {
-    }
+    public function __construct(protected Oauth2Service $oauth2, protected RecordService $record) {}
 
     /**
      * @throws RequestException
      * @throws ConnectionException
+     * @throws Throwable
      */
     public function getAccessToken(): array
     {
@@ -23,6 +23,7 @@ class ZohoCrmService
     /**
      * @throws RequestException
      * @throws ConnectionException
+     * @throws Throwable
      */
     public function getRefreshToken(): array
     {
@@ -33,8 +34,8 @@ class ZohoCrmService
      * @throws RequestException
      * @throws ConnectionException
      */
-    public function getRecords(): array
+    public function getRecords(string $module, string $token, array $fields, ?string $id = ''): array
     {
-        return $this->record->getRecords();
+        return $this->record->getRecords($module, $token, $fields, $id);
     }
 }

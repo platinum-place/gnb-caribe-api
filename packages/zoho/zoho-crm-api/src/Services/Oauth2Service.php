@@ -2,50 +2,75 @@
 
 namespace Zoho\CRM\Services;
 
+use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use Throwable;
 
 class Oauth2Service
 {
+    protected string $clientId;
+    protected string $clientSecret;
+    protected string $redirectUri;
+    protected string $refreshToken;
+
     /**
-     * @throws RequestException
-     * @throws ConnectionException
+     * @throws Throwable
      */
-    public function getAccessToken():array
+    public function __construct()
     {
-        $response = Http::asForm()->post('https://accounts.zoho.com/oauth/v2/token', [
-            'grant_type'    => 'authorization_code',
-            'client_id'     => '1000.7FJQ4A2KDH9S2IJWDYL13HATQFMA2H',
-            'client_secret' => 'c3f1d0589803f294a7c5b27e3968ae1658927da9d7',
-            'redirect_uri'  => 'https://it.gruponobe.com/',
-            'code'          => '',
-        ]);
+        $this->clientId = config('zohocrm.credentials.client_id');
+        $this->clientSecret = config('zohocrm.credentials.client_secret');
+        $this->redirectUri = config('zohocrm.redirect_uri');
+        $this->refreshToken = config('zohocrm.credentials.refresh_token');
 
-        if ($response->failed()) {
-            $response->throw();
-        }
+        throw_if(!$this->clientId || !$this->clientSecret || !$this->redirectUri || !$this->refreshToken,
+            new Exception('Missing Zoho CRM credentials')
+        );
+    }
 
-        return $response->json();
+    protected function getTokenUrl(): string
+    {
+        return config('zohocrm.domains.accounts_url') . '/oauth/' . config('zohocrm.versions.oauth') . '/token';
     }
 
     /**
      * @throws RequestException
      * @throws ConnectionException
+     * @throws Exception
+     * @throws Throwable
      */
-    public function getRefreshToken():array
+    public function getAccessToken(): array
     {
-        $response = Http::asForm()->post('https://accounts.zoho.com/oauth/v2/token', [
-            'grant_type'    => 'refresh_token',
-            'client_id'     => '1000.7FJQ4A2KDH9S2IJWDYL13HATQFMA2H',
-            'client_secret' => 'c3f1d0589803f294a7c5b27e3968ae1658927da9d7',
-            'refresh_token' => '1000.c96967ba181c367d896086bc6379592d.ac8fcf53cd16614731bd72443b13e7bf',
-        ]);
+        return Http::asForm()
+            ->post($this->getTokenUrl(), [
+                'grant_type' => 'authorization_code',
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
+                'redirect_uri' => $this->redirectUri,
+                'code' => '',
+            ])
+            ->throw()
+            ->json();
+    }
 
-        if ($response->failed()) {
-            $response->throw();
-        }
-
-        return $response->json();
+    /**
+     * @throws RequestException
+     * @throws ConnectionException
+     * @throws Exception
+     * @throws Throwable
+     */
+    public function getRefreshToken(): array
+    {
+        return Http::asForm()
+            ->post($this->getTokenUrl(), [
+                'grant_type' => 'refresh_token',
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
+                'refresh_token' => $this->refreshToken,
+            ])
+            ->throw()
+            ->json();
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Zoho\CRM\Facades;
+namespace Zoho\CRM;
 
 use Illuminate\Support\Facades\Facade;
 use Zoho\CRM\Services\ZohoCrmService;
 
-class ZohoCrmFacade extends Facade
+class ZohoCrm extends Facade
 {
     public static function getFacadeAccessor(): string
     {

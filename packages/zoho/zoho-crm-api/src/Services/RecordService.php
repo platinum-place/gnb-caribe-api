@@ -8,22 +8,28 @@ use Illuminate\Support\Facades\Http;
 
 class RecordService
 {
+    protected function getApiUrl(): string
+    {
+        return config('zohocrm.domains.api') . '/crm/' . config('zohocrm.versions.crm');
+    }
+
     /**
      * @throws RequestException
      * @throws ConnectionException
      */
-    public function getRecords(): array
+    public function getRecords(string $module, string $token, array $fields, ?string $id = ''): array
     {
-        $response = Http::withHeaders([
-            'Authorization' => 'Zoho-oauthtoken 1000.757996d545cdb9867541ebf553b01b90.4150caf4fb9d1e08cad9556756094913',
-        ])->get('https://www.zohoapis.com/crm/v8/Cases', [
-            'fields' => 'id'
-        ]);
+        $url = sprintf('%s/%s%s',
+            $this->getApiUrl(),
+            $module,
+            $id ? "/$id" : ''
+        );
 
-        if ($response->failed()) {
-            $response->throw();
-        }
-
-        return $response->json();
+        return Http::withToken($token, 'Zoho-oauthtoken')
+            ->get($url, [
+                'fields' => implode(',', $fields),
+            ])
+            ->throw()
+            ->json();
     }
 }
