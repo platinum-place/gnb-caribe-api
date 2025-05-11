@@ -16,7 +16,7 @@ use Laravel\Passport\Contracts\OAuthenticatable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser, HasTenants, OAuthenticatable
+class User extends Authenticatable implements OAuthenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens, HasFactory, HasRoles,Notifiable;
@@ -61,24 +61,9 @@ class User extends Authenticatable implements FilamentUser, HasTenants, OAuthent
         return $this->where('username', $username)->first();
     }
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return true;
-    }
-
     public function accounts(): BelongsToMany
     {
         return $this->belongsToMany(Account::class, 'account_user');
-    }
-
-    public function getTenants(Panel $panel): Collection
-    {
-        return $this->accounts;
-    }
-
-    public function canAccessTenant(Model $tenant): bool
-    {
-        return $this->accounts()->whereKey($tenant)->exists();
     }
 
     public function isAdmin(): bool
