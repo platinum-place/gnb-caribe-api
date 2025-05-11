@@ -9,10 +9,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Zoho\\CRM\\Providers\\AppServiceProvider"
+                "Zoho\\CRM\\ServiceProvider"
             ],
             "aliases": {
-                "ZohoCrm": "Zoho\\CRM\\Facades\\ZohoCrmFacade"
+                "ZohoCrm": "Zoho\\CRM\\ZohoCrm"
             }
         }
     }
