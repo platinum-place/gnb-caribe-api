@@ -8668,16 +8668,16 @@
             "dist": {
                 "type": "path",
                 "url": "packages/zoho/zoho-crm-api",
-                "reference": "8159381a2082c3d2fe26296f3c3424218c3e87c3"
+                "reference": "e04725a4b8e6cd69e0b0a0c7d726f73bf9117c2b"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Zoho\\CRM\\ServiceProvider"
+                        "Zoho\\CRM\\Providers\\AppServiceProvider"
                     ],
                     "aliases": {
-                        "ZOHOCRM": "Zoho\\CRM\\Facade"
+                        "ZohoCrm": "Zoho\\CRM\\Facades\\ZohoCrmFacade"
                     }
                 }
             },
