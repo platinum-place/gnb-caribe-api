@@ -12,7 +12,7 @@ class ServiceProvider extends LaravelServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/zohocrm.php', 'zohocrm'
+            __DIR__.'/../config/zoho.php', 'zoho'
         );
 
         $this->app->singleton(\Zoho\CRM\Services\Oauth2Service::class);

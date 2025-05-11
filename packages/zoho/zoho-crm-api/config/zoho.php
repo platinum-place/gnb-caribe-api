@@ -2,7 +2,7 @@
 
 return [
     /**
-     * Zoho CRM domain URLs
+     * Zoho domain URLs
      */
     'domains' => [
         'accounts_url' => 'https://accounts.zoho.com',
@@ -10,7 +10,7 @@ return [
     ],
 
     /**
-     * API versions used for OAuth and CRM endpoints
+     * API versions used for OAuth and endpoints
      */
     'versions' => [
         'oauth' => 'v2',
@@ -18,16 +18,15 @@ return [
     ],
 
     /**
-     * Zoho CRM API authentication credentials
+     * Zoho API authentication credentials
      */
     'credentials' => [
-        'client_id' => env('ZOHO_CRM_API_CLIENT_ID'),
-        'client_secret' => env('ZOHO_CRM_API_CLIENT_SECRET'),
-        'refresh_token' => env('ZOHO_CRM_API_REFRESH_TOKEN'),
+        'client_id' => env('ZOHO_API_CLIENT_ID'),
+        'client_secret' => env('ZOHO_API_CLIENT_SECRET'),
     ],
 
     /**
      * OAuth redirect URI for authentication flow
      */
-    'redirect_uri' => env('ZOHO_CRM_API_REDIRECT_URL'),
+    'redirect_uri' => env('ZOHO_API_REDIRECT_URL'),
 ];

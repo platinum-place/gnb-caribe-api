@@ -15,9 +15,9 @@ class ZohoCrmService
      * @throws ConnectionException
      * @throws Throwable
      */
-    public function getAccessToken(): array
+    public function getPersistentToken(string $grantToken): array
     {
-        return $this->oauth2->getAccessToken();
+        return $this->oauth2->getPersistentToken($grantToken);
     }
 
     /**
@@ -25,9 +25,9 @@ class ZohoCrmService
      * @throws ConnectionException
      * @throws Throwable
      */
-    public function getRefreshToken(): array
+    public function getTemporaryToken(string $refreshToken): array
     {
-        return $this->oauth2->getRefreshToken();
+        return $this->oauth2->getTemporaryToken($refreshToken);
     }
 
     /**

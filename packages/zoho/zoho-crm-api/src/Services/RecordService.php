@@ -10,7 +10,7 @@ class RecordService
 {
     protected function getApiUrl(): string
     {
-        return config('zohocrm.domains.api') . '/crm/' . config('zohocrm.versions.crm');
+        return config('zoho.domains.api').'/crm/'.config('zoho.versions.crm');
     }
 
     /**

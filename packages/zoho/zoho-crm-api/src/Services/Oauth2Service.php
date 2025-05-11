@@ -11,8 +11,11 @@ use Throwable;
 class Oauth2Service
 {
     protected string $clientId;
+
     protected string $clientSecret;
+
     protected string $redirectUri;
+
     protected string $refreshToken;
 
     /**
@@ -20,19 +23,19 @@ class Oauth2Service
      */
     public function __construct()
     {
-        $this->clientId = config('zohocrm.credentials.client_id');
-        $this->clientSecret = config('zohocrm.credentials.client_secret');
-        $this->redirectUri = config('zohocrm.redirect_uri');
-        $this->refreshToken = config('zohocrm.credentials.refresh_token');
+        $this->clientId = config('zoho.credentials.client_id');
+        $this->clientSecret = config('zoho.credentials.client_secret');
+        $this->redirectUri = config('zoho.redirect_uri');
+        $this->refreshToken = config('zoho.credentials.refresh_token');
 
-        throw_if(!$this->clientId || !$this->clientSecret || !$this->redirectUri || !$this->refreshToken,
+        throw_if(! $this->clientId || ! $this->clientSecret || ! $this->redirectUri || ! $this->refreshToken,
             new Exception('Missing Zoho CRM credentials')
         );
     }
 
     protected function getTokenUrl(): string
     {
-        return config('zohocrm.domains.accounts_url') . '/oauth/' . config('zohocrm.versions.oauth') . '/token';
+        return config('zoho.domains.accounts_url').'/oauth/'.config('zoho.versions.oauth').'/token';
     }
 
     /**
@@ -41,7 +44,7 @@ class Oauth2Service
      * @throws Exception
      * @throws Throwable
      */
-    public function getAccessToken(): array
+    public function getPersistentToken(string $grantToken): array
     {
         return Http::asForm()
             ->post($this->getTokenUrl(), [
@@ -49,7 +52,7 @@ class Oauth2Service
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
                 'redirect_uri' => $this->redirectUri,
-                'code' => '',
+                'code' =>$grantToken,
             ])
             ->throw()
             ->json();
@@ -61,14 +64,14 @@ class Oauth2Service
      * @throws Exception
      * @throws Throwable
      */
-    public function getRefreshToken(): array
+    public function getTemporaryToken(string $refreshToken): array
     {
         return Http::asForm()
             ->post($this->getTokenUrl(), [
                 'grant_type' => 'refresh_token',
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
-                'refresh_token' => $this->refreshToken,
+                'refresh_token' => $refreshToken,
             ])
             ->throw()
             ->json();
