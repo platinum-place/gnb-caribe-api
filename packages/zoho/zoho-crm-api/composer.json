@@ -12,7 +12,7 @@
                 "Zoho\\CRM\\ServiceProvider"
             ],
             "aliases": {
-                "ZohoCrm": "Zoho\\CRM\\ZohoCrm"
+                "ZohoCrmApi": "Zoho\\CRM\\ZohoCrmApi"
             }
         }
     }

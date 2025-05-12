@@ -8668,7 +8668,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/zoho/zoho-crm-api",
-                "reference": "e203f3a92f095ea6c8cc354ca4bf24578ddfda95"
+                "reference": "902f8fde2fd11d7ca2ba61259b7ee213f9e6aa12"
             },
             "type": "library",
             "extra": {
@@ -8677,7 +8677,7 @@
                         "Zoho\\CRM\\ServiceProvider"
                     ],
                     "aliases": {
-                        "ZohoCrm": "Zoho\\CRM\\ZohoCrm"
+                        "ZohoCrmApi": "Zoho\\CRM\\ZohoCrmApi"
                     }
                 }
             },
