@@ -17,7 +17,7 @@ class CRMService
      * @throws RequestException
      * @throws ConnectionException
      */
-    public function getRecords(string $module, string $token, array $fields, ?string $id = ''): array
+    public function getRecords(string $module, string $token, array $fields, ?string $id = ''): ?array
     {
         $url = sprintf('%s/%s%s',
             $this->getApiUrl(),
@@ -37,7 +37,7 @@ class CRMService
      * @throws RequestException
      * @throws ConnectionException
      */
-    public function searchRecords(string $module, string $token, string $criteria): array
+    public function searchRecords(string $module, string $token, string $criteria): ?array
     {
         $url = sprintf('%s/%s/search',
             $this->getApiUrl(),
