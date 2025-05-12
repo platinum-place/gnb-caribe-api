@@ -32,4 +32,21 @@ class RecordService
             ->throw()
             ->json();
     }
+
+    /**
+     * @throws RequestException
+     * @throws ConnectionException
+     */
+    public function searchRecords(string $module, string $token, string $criteria): array
+    {
+        $url = sprintf('%s/%s/search',
+            $this->getApiUrl(),
+            $module,
+        );
+
+        return Http::withToken($token, 'Zoho-oauthtoken')
+            ->get($url, http_build_query(['criteria' => $criteria]))
+            ->throw()
+            ->json();
+    }
 }

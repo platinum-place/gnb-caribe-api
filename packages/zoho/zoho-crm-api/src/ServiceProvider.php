@@ -17,7 +17,7 @@ class ServiceProvider extends LaravelServiceProvider
 
         $this->app->singleton(\Zoho\CRM\Services\Oauth2Service::class);
         $this->app->singleton(\Zoho\CRM\Services\RecordService::class);
-        $this->app->singleton(\Zoho\CRM\Services\ZohoCrmService::class);
+        $this->app->singleton(\Zoho\CRM\Services\ZohoCrmApiService::class);
     }
 
     /**

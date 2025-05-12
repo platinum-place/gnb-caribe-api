@@ -6,7 +6,7 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
 use Throwable;
 
-class ZohoCrmService
+class ZohoCrmApiService
 {
     public function __construct(protected Oauth2Service $oauth2, protected RecordService $record) {}
 
@@ -37,5 +37,14 @@ class ZohoCrmService
     public function getRecords(string $module, string $token, array $fields, ?string $id = ''): array
     {
         return $this->record->getRecords($module, $token, $fields, $id);
+    }
+
+    /**
+     * @throws RequestException
+     * @throws ConnectionException
+     */
+    public function searchRecords(string $module, string $token, string $criteria): array
+    {
+        return $this->record->searchRecords($module, $token, $criteria);
     }
 }

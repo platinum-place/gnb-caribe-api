@@ -3,12 +3,12 @@
 namespace Zoho\CRM;
 
 use Illuminate\Support\Facades\Facade;
-use Zoho\CRM\Services\ZohoCrmService;
+use Zoho\CRM\Services\ZohoCrmApiService;
 
-class ZohoCrm extends Facade
+class ZohoCrmApi extends Facade
 {
     public static function getFacadeAccessor(): string
     {
-        return ZohoCrmService::class;
+        return ZohoCrmApiService::class;
     }
 }

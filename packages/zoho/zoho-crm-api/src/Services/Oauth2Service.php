@@ -16,8 +16,6 @@ class Oauth2Service
 
     protected string $redirectUri;
 
-    protected string $refreshToken;
-
     /**
      * @throws Throwable
      */
@@ -26,9 +24,8 @@ class Oauth2Service
         $this->clientId = config('zoho.credentials.client_id');
         $this->clientSecret = config('zoho.credentials.client_secret');
         $this->redirectUri = config('zoho.redirect_uri');
-        $this->refreshToken = config('zoho.credentials.refresh_token');
 
-        throw_if(! $this->clientId || ! $this->clientSecret || ! $this->redirectUri || ! $this->refreshToken,
+        throw_if(! $this->clientId || ! $this->clientSecret || ! $this->redirectUri,
             new Exception('Missing Zoho CRM credentials')
         );
     }
@@ -52,7 +49,7 @@ class Oauth2Service
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
                 'redirect_uri' => $this->redirectUri,
-                'code' =>$grantToken,
+                'code' => $grantToken,
             ])
             ->throw()
             ->json();
