@@ -1,6 +1,6 @@
 <?php
 
-namespace Zoho\CRM\Services;
+namespace Zoho\Oauth\Services;
 
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
@@ -8,7 +8,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Throwable;
 
-class Oauth2Service
+class OauthService
 {
     protected string $clientId;
 
@@ -21,18 +21,18 @@ class Oauth2Service
      */
     public function __construct()
     {
-        $this->clientId = config('zoho.credentials.client_id');
-        $this->clientSecret = config('zoho.credentials.client_secret');
-        $this->redirectUri = config('zoho.redirect_uri');
+        $this->clientId = config('zoho.oauth.client_id');
+        $this->clientSecret = config('zoho.oauth.client_secret');
+        $this->redirectUri = config('zoho.oauth.redirect_uri');
 
-        throw_if(! $this->clientId || ! $this->clientSecret || ! $this->redirectUri,
+        throw_if(!$this->clientId || !$this->clientSecret || !$this->redirectUri,
             new Exception('Missing Zoho CRM credentials')
         );
     }
 
     protected function getTokenUrl(): string
     {
-        return config('zoho.domains.accounts_url').'/oauth/'.config('zoho.versions.oauth').'/token';
+        return config('zoho.domains.accounts_url') . '/' . config('zoho.oauth.uri');
     }
 
     /**
