@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b2fe0ee642682787e6e2f4c1cadc42d",
+    "content-hash": "7c7f45cad085cc3d8aab3f366bc47e3c",
     "packages": [
         {
             "name": "archtechx/enums",
@@ -8663,12 +8663,38 @@
             "time": "2022-06-03T18:03:27+00:00"
         },
         {
-            "name": "zoho/zoho-crm-api",
+            "name": "zoho/api",
             "version": "dev-main",
             "dist": {
                 "type": "path",
-                "url": "packages/zoho/zoho-crm-api",
-                "reference": "902f8fde2fd11d7ca2ba61259b7ee213f9e6aa12"
+                "url": "packages/zoho/api",
+                "reference": "6b2c6208bf71704dfc20fe16b920221f0788a2a8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Zoho\\Api\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zoho\\Api\\": "src/"
+                }
+            },
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "zoho/crm",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "packages/zoho/crm",
+                "reference": "f6f134388af4a68eda3ba85677a7b274f5be99a0"
             },
             "type": "library",
             "extra": {
@@ -8677,13 +8703,42 @@
                         "Zoho\\CRM\\ServiceProvider"
                     ],
                     "aliases": {
-                        "ZohoCrmApi": "Zoho\\CRM\\ZohoCrmApi"
+                        "ZohoCRM": "Zoho\\CRM\\Facade"
                     }
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Zoho\\CRM\\": "src/"
+                }
+            },
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "zoho/oauth",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "packages/zoho/oauth",
+                "reference": "5b1b71d194cccbb7506d542f8b58dff6daab4e9c"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Zoho\\Oauth\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "ZohoOauth": "Zoho\\Oauth\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zoho\\Oauth\\": "src/"
                 }
             },
             "transport-options": {
@@ -10981,7 +11036,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "zoho/zoho-crm-api": 20
+        "zoho/api": 20,
+        "zoho/crm": 20,
+        "zoho/oauth": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
