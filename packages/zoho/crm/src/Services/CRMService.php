@@ -6,11 +6,11 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 
-class RecordService
+class CRMService
 {
     protected function getApiUrl(): string
     {
-        return config('zoho.domains.api').'/crm/'.config('zoho.versions.crm');
+        return config('zoho.domains.api') . '/' . config('zoho.crm.uri');
     }
 
     /**
