@@ -1,18 +1,18 @@
 {
-    "name": "zoho/zoho-crm-api",
+    "name": "zoho/oauth",
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Zoho\\CRM\\": "src/"
+            "Zoho\\Oauth\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Zoho\\CRM\\ServiceProvider"
+                "Zoho\\Oauth\\ServiceProvider"
             ],
             "aliases": {
-                "ZohoCrmApi": "Zoho\\CRM\\ZohoCrmApi"
+                "ZohoOauth": "Zoho\\Oauth\\Facade"
             }
         }
     }
